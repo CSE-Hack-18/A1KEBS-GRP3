@@ -18,7 +18,7 @@ const UnitSchema = new mongoose.Schema({
     name: String,
     nurses: [{
         name: String,
-        experience: String, 
+        experience: String,
         number: String
     }],
     doctor: [{
@@ -123,12 +123,21 @@ function getAllRooms(unitName) {
         }
 }
 
+// function findBedForPatient(personNumber){
+//   //db.getCollection('patients').find({}).sort({"dischargeDate":1}).limit(1)
+//   //db.getCollection('patients').find({ },{personalNumber: 1, _id:0}).sort({"dischargeDate":1})
+//   Person.find({},{personalNumber:1 , _id:0}).
+//   sort({"dischargeDate":1});
+//
+//
+// }
+
 function getNurses(ack){
     Unit.find({}, function (err, data) {
         if (err) {
             console.log(err);
         } else ack(data.nurses);
-    });    
+    });
 }
 
 function getDoctor(){
@@ -136,7 +145,7 @@ function getDoctor(){
         if (err) {
             console.log(err);
         } else ack(data.doctor);
-    });   
+    });
 }
 
 exports.addPatient = addPatient
