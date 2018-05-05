@@ -9,27 +9,38 @@ const PatientSchema = new mongoose.Schema({
     dateOfBirth: Date,
     admissionDate: Date,
     dischargeDate: Date,
-    unit: String
+    unit: String,
+    condition: String
 });
 
 const UnitSchema = new mongoose.Schema({
     name: String,
-    rooms: [{
+    nurses: [{
         name: String,
-        beds: [
-            {
-                number: String,
-                occupied: Boolean,
-                patient: String
+        experience: String
+    }],
+    doctor: [{
+        name: String
+    }]
+});
+
+const RoomSchema = new mongoose.Schema({
+    unit: String,
+    name: String,
+    type: String,
+    beds: [
+        {
+            number: String,
+            occupied: Boolean,
+            patient: String
           }
         ],
-        facilities: [String]
-    }], 
-    nurses: []
+    facilities: [String]
 });
 
 const Patient = mongoose.model('Patient', PatientSchema)
 const Unit = mongoose.model('Unit', UnitSchema)
+const Room = mongoose.model('Room', RoomSchema)
 
 function addPatient(data) {
     var patient = new Patient(data);
@@ -38,28 +49,81 @@ function addPatient(data) {
             console.log(err);
         }
     });
+    console.log("New patient added.");
 };
 
-function addPatientToBed(bed, personalNumber, ack){
-    
+function addPatientToBed(bed, personalNumber) {
+    Room.update({
+            'beds.number': bed
+        }, {
+            '$set': {
+                'beds.$.occupied': true,
+                'beds.$.patient': personalNumber
+            }
+        },
+        function (err) {
+            if (err) {
+                console.log(err);
+            }
+        }
+    );
 }
 
 function getPatientByID(personalNumber, ack) {
-   
+    Patient.findOne({
+        personalNumber: personalNumber
+    }, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            ack(data);
+        }
+    });
 }
 
-function getPatientByBed(bedNumber, ack){
-    
+function getPatientByBed(bedNumber, ack) {
+    Room.findOne({
+        'beds.number': bedNumber
+    }, {
+        'beds.$' : 1
+    }, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (data === null) {
+                console.log("Bed is empty.");
+                return "";
+            } else {                
+                getPatientByID(data.beds[0].patient, function(person){
+                    ack(person);
+                });
+            }
+        }
+    })
 }
 
-function getAllPatients(ack){
-    Patient.find({}, function(err, data){
-        if(err){
+function getAllPatients(ack) {
+    Patient.find({}, function (err, data) {
+        if (err) {
             console.log(err);
         } else ack(data);
     })
 }
 
+function getAllRooms(unitName) {
+    Room.find({
+            unit: unitName
+        }),
+        function (err, data) {
+            if (err) {
+                console.log(err);
+            } else ack(data.rooms);
+        }
+}
+
 exports.addPatient = addPatient
 exports.getPatientByBed = getPatientByBed
 exports.getPatientByID = getPatientByID
+exports.getAllPatients = getAllPatients
+exports.addPatientToBed = addPatientToBed
+exports.getAllRooms = getAllRooms
