@@ -63,6 +63,37 @@ io.on('connection', function (client) {
             //No room with an empty bed found
             //Find room with the least ammount of people and with people that leave
             //the earliest
+          var now = Date.now();
+          var earliest;
+          var chosenBed;
+          //find room with earliest leaving neighbour
+          for(var i=0; i < rooms.length; i++){
+            for(var j=0; j < rooms[i].beds.length; j++){
+
+              patient = getPatientByID(rooms[i].beds[j].patient);
+              if(earliest === null){
+                for(var k = 0; k < rooms[i].beds.length; k++){
+                  if(!rooms[i].beds[k].occupied){
+                    earliest = patient;
+                    chosenBed = rooms[i].beds[k].number;
+                  }
+                }
+              }
+
+              if(patient.dischargeDate - now < earliest.dischargeDate - now){
+                for(var k = 0; k < rooms[i].beds.length; k++){
+                  if(!rooms[i].beds[k].occupied){
+                    earliest = patient;
+                    chosenBed = rooms[i].beds[k].number;
+                  }
+                }
+              }
+            }
+            if(earliest == null){
+              console.log("No bed available");
+            }
+          }
+
 
 
         });

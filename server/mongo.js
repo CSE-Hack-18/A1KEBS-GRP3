@@ -10,14 +10,16 @@ const PatientSchema = new mongoose.Schema({
     admissionDate: Date,
     dischargeDate: Date,
     unit: String,
-    condition: String
+    condition: String,
+    nurse: String
 });
 
 const UnitSchema = new mongoose.Schema({
     name: String,
     nurses: [{
         name: String,
-        experience: String
+        experience: String, 
+        number: String
     }],
     doctor: [{
         name: String
@@ -119,6 +121,22 @@ function getAllRooms(unitName) {
                 console.log(err);
             } else ack(data.rooms);
         }
+}
+
+function getNurses(ack){
+    Unit.find({}, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else ack(data.nurses);
+    });    
+}
+
+function getDoctor(){
+    Unit.find({}, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else ack(data.doctor);
+    });   
 }
 
 exports.addPatient = addPatient
