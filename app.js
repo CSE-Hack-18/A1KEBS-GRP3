@@ -2,7 +2,7 @@ var express = require('express')
 var path = require('path')
 var io = require('socket.io')(8080);
 
-var mongo = require('./server/mongo.js')
+//var mongo = require('./server/mongo.js')
 
 var app = express()
 
@@ -30,6 +30,14 @@ io.on('connection', function (client) {
         console.log(data);
         //mongo.saveUser(data);
     });
+
+    // client.on('getPatient', function(patientPersonNumber) {
+    //   console.log("Getting patient");
+    //   mongo.getPatient(patientPersonNumber, function(patient))
+    //
+    // })
+
+
 
 
 });
