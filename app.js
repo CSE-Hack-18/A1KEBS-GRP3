@@ -34,7 +34,7 @@ io.on('connection', function (client) {
     // client.on('getPatient', function(patientPersonNumber) {
     //   console.log("Getting patient");
     //   mongo.getPatient(patientPersonNumber, function(patient))
-    //
+    //    
     // })
 
 
