@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/manager')
+mongoose.connect('mongodb://hospital:hospital1@ds021046.mlab.com:21046/heroku_483f69hg')
 mongoose.set('debug', true)
 
 const PatientSchema = new mongoose.Schema({
@@ -93,7 +93,7 @@ function getPatientByBed(bedNumber, ack) {
             if (data === null) {
                 console.log("Bed is empty.");
                 return "";
-            } else {                
+            } else {
                 getPatientByID(data.beds[0].patient, function(person){
                     ack(person);
                 });

@@ -132,13 +132,13 @@ console.log("Get ALL PATIENTS");
 //mongo.getAllPatients(function(data){
 //    console.log(data);
 //})
-mongo.getPatientByID("12234567", function (data) {
-    console.log(data.name);
-});
-
-console.log("ADD TO BED");
-mongo.addPatientToBed("A2", "12234567");
-
-mongo.getPatientByBed("A2", function (data) {
-    console.log(data)
-});
+// mongo.getPatientByID("12234567", function (data) {
+//     console.log(data.name);
+// });
+//
+// console.log("ADD TO BED");
+// mongo.addPatientToBed("A2", "12234567");
+//
+// mongo.getPatientByBed("A2", function (data) {
+//     console.log(data)
+// });
