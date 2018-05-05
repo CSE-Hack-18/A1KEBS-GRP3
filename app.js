@@ -35,3 +35,59 @@ io.on('connection', function (client) {
 
 
 });
+
+var unit = {
+    name: "Intensive care",
+    nurses: [{
+        name: "Nurse AB",
+        experience: "experienced"
+    }],
+    doctor: [{
+        name: "Doctor B"
+    }]
+};
+
+var rooms = [{
+    unit: "Intensive care", 
+        name: "Room A",
+        type: "Sleeping",
+        beds: [
+            {
+                number: "A1",
+                occupied: false,
+                patient: ""
+          },
+            {
+                number: "A2",
+                occupied: false,
+                patient: ""
+          }
+        ],
+        facilities: ["something", "something", "something"]
+    }];
+
+var pat = {
+    name: "Patient A",
+    personalNumber: "12234567",
+    dateOfBirth: new Date(),
+    admissionDate: new Date(),
+    dischargeDate: new Date(),
+    unit: "Hospital"
+};
+
+console.log("test");
+//mongo.addPatient(pat);
+console.log("Get ALL PATIENTS");
+//mongo.getAllPatients(function(data){
+//    console.log(data);
+//})
+mongo.getPatientByID("12234567", function (data) {
+    console.log(data.name);
+});
+
+console.log("ADD TO BED");
+mongo.addPatientToBed("A2", "12234567");
+
+mongo.getPatientByBed("A2", function(data){
+    console.log(data)
+});
