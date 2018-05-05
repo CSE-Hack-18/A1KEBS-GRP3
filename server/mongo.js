@@ -126,6 +126,7 @@ function getAllRooms(unitName, ack) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // function findBedForPatient(personNumber){
 //   //db.getCollection('patients').find({}).sort({"dischargeDate":1}).limit(1)
 //   //db.getCollection('patients').find({ },{personalNumber: 1, _id:0}).sort({"dischargeDate":1})
@@ -136,6 +137,9 @@ function getAllRooms(unitName, ack) {
 // }
 
 function getNurses(ack){
+=======
+function getNurses(ack) {
+>>>>>>> 589ebfd25e7b78f1c274e6de4b5f61e9077ee9e5
 =======
 function getNurses(ack) {
 >>>>>>> 589ebfd25e7b78f1c274e6de4b5f61e9077ee9e5
