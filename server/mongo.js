@@ -87,7 +87,7 @@ function getPatientByBed(bedNumber, ack) {
     Room.findOne({
         'beds.number': bedNumber
     }, {
-        'beds.$' : 1
+        'beds.$': 1
     }, function (err, data) {
         if (err) {
             console.log(err);
@@ -96,7 +96,7 @@ function getPatientByBed(bedNumber, ack) {
                 console.log("Bed is empty.");
                 return "";
             } else {
-                getPatientByID(data.beds[0].patient, function(person){
+                getPatientByID(data.beds[0].patient, function (person) {
                     ack(person);
                 });
             }
@@ -112,17 +112,20 @@ function getAllPatients(ack) {
     })
 }
 
-function getAllRooms(unitName) {
+function getAllRooms(unitName, ack) {
     Room.find({
             unit: unitName
-        }),
+        },
         function (err, data) {
             if (err) {
                 console.log(err);
-            } else ack(data.rooms);
-        }
+            } else {
+                ack(data);
+            }
+        })
 }
 
+<<<<<<< HEAD
 // function findBedForPatient(personNumber){
 //   //db.getCollection('patients').find({}).sort({"dischargeDate":1}).limit(1)
 //   //db.getCollection('patients').find({ },{personalNumber: 1, _id:0}).sort({"dischargeDate":1})
@@ -133,6 +136,9 @@ function getAllRooms(unitName) {
 // }
 
 function getNurses(ack){
+=======
+function getNurses(ack) {
+>>>>>>> 589ebfd25e7b78f1c274e6de4b5f61e9077ee9e5
     Unit.find({}, function (err, data) {
         if (err) {
             console.log(err);
@@ -140,7 +146,7 @@ function getNurses(ack){
     });
 }
 
-function getDoctor(){
+function getDoctor() {
     Unit.find({}, function (err, data) {
         if (err) {
             console.log(err);

@@ -25,10 +25,21 @@ app.listen(3000, function () {
 io.on('connection', function (client) {
     console.log("A new client has connected...");
 
-    client.on('register', function (data) {
-        console.log("A new user has registered.");
-        console.log(data);
-        //mongo.saveUser(data);
+	client.on('getUnit', (args) => {
+		console.log(argsa);
+	})
+
+    client.on('getBeds', function (data, callback) {
+        console.log("Getting the bed data.");
+        mongo.getAllRooms(data, function(rooms){       
+            var beds = [];
+            //console.log(rooms);
+            for(var i=0; i<rooms.length; i++){
+                beds = beds.concat(rooms[i].beds);
+            }
+            console.log(beds);
+            callback(beds);
+        });        
     });
 
     client.on('getPatientByID', function (personNumber) {
