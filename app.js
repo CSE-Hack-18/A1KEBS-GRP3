@@ -25,6 +25,10 @@ app.listen(3000, function () {
 io.on('connection', function (client) {
     console.log("A new client has connected...");
 
+	client.on('getUnit', (args) => {
+		console.log(argsa);
+	})
+
     client.on('register', function (data) {
         console.log("A new user has registered.");
         console.log(data);
