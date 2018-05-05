@@ -2,7 +2,7 @@ var express = require('express')
 var path = require('path')
 var io = require('socket.io')(8080);
 
-//var mongo = require('./server/mongo.js')
+var mongo = require('./server/mongo.js')
 
 var app = express()
 
@@ -31,51 +31,62 @@ io.on('connection', function (client) {
         //mongo.saveUser(data);
     });
 
-    client.on('getPatientByID', function(personNumber) {
-      var patient = getPatientByID(personNumber);
-      console.log("Getting patient");
-      console.log(patient);
-      console.log("Sending patient");
+    client.on('getPatientByID', function (personNumber) {
+        var patient = getPatientByID(personNumber);
+        console.log("Getting patient");
+        console.log(patient);
+        console.log("Sending patient");
 
-      io.sockets.emit('patient',patient);
-      });
+        io.sockets.emit('patient', patient);
     });
 
-    client.on('findBedForPatient', funtion(personNumber){
-      console.log("Finding bed");
-      var patient = getPatientByID(personNumber);
-        mongo.getAllRooms(patient.unit, function(rooms){
-          //Look for room with empty beds
-          for(var i = 0; i < rooms.length; i++){
-            var freeBeds = 0;
-            for(var j = 0; j < rooms[i].beds.length; j++){
-              if(!rooms[i].beds[j].occupied){
-                freeBeds++
-              }
-            }
-            //If the room is empty
-            if(freeBeds == rooms[i].beds.length){
-              mongo.addPatientToBed(rooms[i].beds[0].number, personNumber);
-              io.sockets.emit('assignedBed', rooms[i].beds[0].number);
-              break;
-            }
-          }
-          //No room with an empty bed found
-          //Find room with the least ammount of people and with people that leave
-          //the earliest
 
-            
+    client.on('findBedForPatient', function (personNumber) {
+        console.log("Finding bed");
+        var patient = getPatientByID(personNumber);
+        mongo.getAllRooms(patient.unit, function (rooms) {
+            //Look for room with empty beds
+            for (var i = 0; i < rooms.length; i++) {
+                var freeBeds = 0;
+                for (var j = 0; j < rooms[i].beds.length; j++) {
+                    if (!rooms[i].beds[j].occupied) {
+                        freeBeds++
+                    }
+                }
+                //If the room is empty
+                if (freeBeds == rooms[i].beds.length) {
+                    mongo.addPatientToBed(rooms[i].beds[0].number, personNumber);
+                    io.sockets.emit('assignedBed', rooms[i].beds[0].number);
+                    break;
+                }
+            }
+            //No room with an empty bed found
+            //Find room with the least ammount of people and with people that leave
+            //the earliest
+
+
         });
     });
 
-    client.on('getPatientByBed', function( (bedNumber) {
-      console.log("Getting patient");
-      mongo.getPatientByBed(personNumber, function(bed){
-        console.log(bed);
-        patient = getPatientByID(personNumber);
-        io.sockets.emit('patient',patient);
-      });
+    client.on('getPatientByBed', function (bedNumber) {
+        console.log("Getting patient");
+        mongo.getPatientByBed(personNumber, function (bed) {
+            console.log(bed);
+            patient = getPatientByID(personNumber);
+            io.sockets.emit('patient', patient);
+        });
     });
+
+
+});
+
+
+function getPatientByID(personNumber) {
+    mongo.getPatientByID(personNumber, function (patient) {
+        return patient;
+    });
+}
+
 var unit = {
     name: "Intensive care",
     nurses: [{
@@ -84,33 +95,26 @@ var unit = {
     }],
     doctor: [{
         name: "Doctor B"
-});
-
-function getPatientByID(personNumber){
-  mongo.getPatientByID(personNumber, function(patient) {
-    return patient;
-  }
-}
     }]
 };
 
 var rooms = [{
-    unit: "Intensive care", 
-        name: "Room A",
-        type: "Sleeping",
-        beds: [
-            {
-                number: "A1",
-                occupied: false,
-                patient: ""
+    unit: "Intensive care",
+    name: "Room A",
+    type: "Sleeping",
+    beds: [
+        {
+            number: "A1",
+            occupied: false,
+            patient: ""
           },
-            {
-                number: "A2",
-                occupied: false,
-                patient: ""
+        {
+            number: "A2",
+            occupied: false,
+            patient: ""
           }
         ],
-        facilities: ["something", "something", "something"]
+    facilities: ["something", "something", "something"]
     }];
 
 var pat = {
@@ -135,6 +139,6 @@ mongo.getPatientByID("12234567", function (data) {
 console.log("ADD TO BED");
 mongo.addPatientToBed("A2", "12234567");
 
-mongo.getPatientByBed("A2", function(data){
+mongo.getPatientByBed("A2", function (data) {
     console.log(data)
 });
