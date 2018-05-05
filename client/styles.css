@@ -1,31 +1,39 @@
+html {
+	background: url(img/bg.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+h1 {
+	text-align: center;
+}
+
 .container {
 	text-align: center;
 }
 
 .unit {
 	margin: auto;
-	width: 1200px;
+	width: 1100px;
 	height: 600px;
-	border: 1px solid green;
 }
 
 .panel {
 	margin: auto;
-	width: 1200px;
+	width: 1100px;
 	height: 160px;
-	border: 1px solid green;
 }
 
 .row {
 	padding: 10px;
 	height: 160px;
-	border: 1px solid blue;
 }
 
 .column {
 	padding: 10px;
 	height: 524px;
-	border: 1px solid blue;
 }
 
 .left-section {
@@ -38,24 +46,38 @@
 	width: 20%;
 }
 
-ul {
+.row ul {
 	list-style-type: none;
 }
 
-li {
+.row li {
 	float: left;
+}
+
+label {
+	display: inline-block;
+	width: 100%;
+	height: 30px;
+	color: white;
+	text-align: center;
+	padding-top: 2px;
+	text-transform: uppercase;
+	font-size: 16px;
 }
 
 .room {
 	margin-left: 0px;
 	width: 200px;
 	height: 120px;
-	border: 1px solid #c5c5c5;
 	background-color: #BC9CB0;
 }
 
+#room1, #room5 {
+	border-left: 0px;
+}
+
 .room:hover {
-	background-color: #C2A5B7;
+	background-color: #CEB7C5;
 }
 
 .room .beds {
@@ -68,28 +90,17 @@ li {
 }
 
 .room .bed {
-	display: table-cell;
-	width: auto;
-	margin-left: 2px;
-	border: 1px solid #c5c5c5;
-	background-color: white;
+	color: #453940;
 }
 
 .room label {
-	display: inline-block;
-	width: 100%;
-	height: 20px;
 	background-color: #564750;
-	color: white;
-	text-align: center;
-	padding-top: 5px;
 }
 
 .staff-room {
 	margin-top: 12px;
 	width: 180px;
 	height: 240px;
-	border: 1px solid #c5c5c5;
 	background-color: #BBDB9B;
 }
 
@@ -98,20 +109,13 @@ li {
 }
 
 .staff-room label {
-	display: inline-block;
-	width: 100%;
-	height: 20px;
 	background-color: #667855;
-	color: white;
-	text-align: center;
-	padding-top: 5px;
 }
 
 .treatment-room {
 	margin-top: 1px;
 	width: 180px;
 	height: 250px;
-	border: 1px solid #c5c5c5;
 	background-color: #83A0A0;
 }
 
@@ -120,20 +124,13 @@ li {
 }
 
 .treatment-room label {
-	display: inline-block;
-	width: 100%;
-	height: 20px;
 	background-color: #546666;
-	color: white;
-	text-align: center;
-	padding-top: 5px;
 }
 
 .medicine-room {
 	margin-left: 1px;
 	width: 400px;
 	height: 120px;
-	border: 1px solid #c5c5c5;
 	background-color: #56876D;
 }
 
@@ -142,20 +139,12 @@ li {
 }
 
 .medicine-room label {
-	display: inline-block;
-	width: 100%;
-	height: 20px;
 	background-color: #375646;
-	color: white;
-	text-align: center;
-	padding-top: 5px;
 }
 
 .spare-room {
-	margin-left: 1px;
 	width: 400px;
 	height: 120px;
-	border: 1px solid #c5c5c5;
 	background-color: #6279B8;
 }
 
@@ -164,17 +153,16 @@ li {
 }
 
 .spare-room label {
-	display: inline-block;
-	width: 100%;
-	height: 20px;
 	background-color: #3F4E76;
-	color: white;
-	text-align: center;
-	padding-top: 5px;
 }
 
 button {
 	margin: 20px;
 	width: 200px;
 	height: 80px;
+}
+
+#modal-treatment-room {
+	text-align: center;
+	width: 600px;
 }
