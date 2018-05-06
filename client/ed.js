@@ -8,8 +8,25 @@ $(function(){
         console.log(data);
     });
 
-})
+	$('#person1').on('click', (event) => {
+		event.preventDefault();
+		socket.emit('findBedForPatient', '19920201-5993');
+		console.log('person1');
+		$('#person1').hide();
+	})
 
-$('#button2').on('click', () => {
-	$('#modal-room').modal('open');
+	$('#person2').on('click', () => {
+		event.preventDefault();
+		socket.emit('findBedForPatient', '19950115-1527');
+		console.log('person2');
+		$('#person2').hide();
+	})
+
+	$('#person3').on('click', () => {
+		event.preventDefault();
+		socket.emit('findBedForPatient', '19671019-5774');
+		console.log('person3');
+		$('#person3').hide();
+	})
+
 })
