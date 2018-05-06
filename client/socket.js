@@ -3,23 +3,26 @@ var socket = io("http://localhost:8080");
 
 var beds = [];
 
-
-console.log("test");
-socket.emit('getBeds', 'General Medicine', function(data){
-   console.log(data); 
+socket.emit('getBeds', 'General Medicine', function (data) {
     beds = data;
-    
-    //populate beds
-    for(bed in beds){
-        if(bed.occupied){            
-            occupyRoom(bed.bedNumber);
-        }
+    for (var i = 0; i < beds.length; i++) {
+        console.log(beds[i]);
+        getPersonForBed(i, function (i, e) {
+            beds[i].patient = e;
+            if(beds[i].occupied){
+                fillBed(beds[i].number);
+            }
+        });
     }
-    
-    
 });
+
+function getPersonForBed(i, callback) {
+    socket.emit('getBedOwner', beds[i].number, function (data) {
+        callback(i, data);
+    });
+}
 
 
 socket.on('updateRoom', (data) => {
-
+    //fillRoom(bed.number);
 });
