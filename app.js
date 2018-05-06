@@ -166,9 +166,15 @@ io.on('connection', function (client) {
                 io.sockets.emit('patient', patient);
             });
         });
+
+		client.on('getAllPatientsByUnit', function (unit) {
+            console.log("Getting patients by unit: " + unit);
+			mongo.getAllPatientsByUnit(unit, (patients) => {
+				console.log(patients);
+			});
+        });
     });
 });
-
 
 patientList = [];
 
