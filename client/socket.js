@@ -10,7 +10,9 @@ $(document).ready(function () {
     });
 
     socket.on('assignedBed', (data) => {
+        console.log("A new patient has been assigned to bed "+data);
         var location = getBedLocation(data);
+        beds[location].occupied = true;
         getPersonForBed(location);
     });
 });

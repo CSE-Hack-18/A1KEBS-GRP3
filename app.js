@@ -131,6 +131,7 @@ io.on('connection', function (client) {
                         function addPatientToBed(chosenBed, personNumber) {
                             if (chosenBed !== null || chosenBed !== undefined) {
                                 mongo.addPatientToBed(chosenBed, personNumber);
+                                console.log("Patient has been assigned bed "+chosenBed);
                                 io.sockets.emit('assignedBed', chosenBed);
                             } else {
                                 console.log("No bed available");
