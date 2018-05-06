@@ -114,7 +114,7 @@ io.on('connection', function (client) {
                                             }
                                         } else if (patientObject.dischargeDate < earliest.dischargeDate) {
                                             if (!rooms[i].beds[(j + 1) % 2].occupied) {
-                                              if(earliest.gender=== patient.gender){
+                                              if(patientObject.gender === patient.gender){
                                                 earliest = patientObject;
                                                 chosenBed = rooms[i].beds[(j + 1) % 2].number;
                                                 console.log("chosenBed");
