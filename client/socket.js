@@ -10,10 +10,24 @@ $(document).ready(function () {
     });
 
     socket.on('assignedBed', (data) => {
-        console.log("A new patient has been assigned to bed "+data);
+        var textString = "A new patient has been assigned to bed "+data+"!";
+        //var toastHtml = '<span>'+textString+'</span><button class="btn-flat toast-action id="view-added">View</button>';
+        var toastHtml = '<span>'+textString+'</span>';
+        if(data === null){
+            textString = "No bed found for patient."
+            toastHtml = '<span>'+textString+'</span>';
+        }
+        console.log(textString);
+        M.toast({html: toastHtml});
+//        $(document).one('click', '#view-added', function(){
+//            var room = data.substr(0, 2);
+//            console.log(room);
+//            $("#"+room).click();        
+//        });
         var location = getBedLocation(data);
         beds[location].occupied = true;
         getPersonForBed(location);
+        
     });
 });
 
