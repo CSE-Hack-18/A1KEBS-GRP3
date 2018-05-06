@@ -11,7 +11,7 @@ const PatientSchema = new mongoose.Schema({
     dischargeDate: Date,
     unit: String,
     condition: String,
-    nurse: String
+    gender: String
 });
 
 const UnitSchema = new mongoose.Schema({
