@@ -78,13 +78,13 @@ label {
 
 .room:hover {
 	background-color: #CEB7C5;
+    cursor: pointer;
 }
 
 .room .beds {
-	display: table;
+	display: inline;
 	position: relative;
-	left: 120px;
-	top: 50px;
+	top: 40px;
 	width: 60px;
 	height: 30px;
 }
