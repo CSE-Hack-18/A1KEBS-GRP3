@@ -1,269 +1,282 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<script src="socket.io.js"></script>
-		<script src="jquery.js"></script>
-		<!-- Compiled and minified CSS -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-		<!-- Compiled and minified JavaScript -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="socket.js"></script>
-		<link rel="stylesheet" href="styles.css">
-	</head>
-	<body>
-	<h1>General medicine unit</h1>
-	<div class="container">
-		<div class="unit">
-			<div class="left-section">
-				<div class="row">
-					<ul>
-						<li>
-							<div id="R1" class="room z-depth-2">
-								<label>#1</label>
-								<div class="beds">
-									<i id="R11" class="small material-icons bed">check_box_outline_blank</i>
-									<i id="R12" class="small material-icons bed">check_box_outline_blank</i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="R2" class="room z-depth-2">
-								<label>#2</label>
-								<div class="beds">
-									<i id="R21" class="small material-icons bed">check_box_outline_blank</i>
-									<i id="R22" class="small material-icons bed">check_box_outline_blank</i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="R3" class="room z-depth-2">
-								<label>#3</label>
-								<div class="beds">
-									<i id="R31" class="small material-icons bed">check_box_outline_blank</i>
-									<i id="R32" class="small material-icons bed">check_box_outline_blank</i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="R4" class="room z-depth-2">
-								<label>#4</label>
-								<div class="beds">
-									<i id="R41" class="small material-icons bed">check_box_outline_blank</i>
-									<i id="R42" class="small material-icons bed">check_box_outline_blank</i>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="row">
-					<ul>
-						<li>
-							<div id="R5" class="room z-depth-2">
-								<label>#5</label>
-								<div class="beds">
-									<i id="R51" class="small material-icons bed">check_box_outline_blank</i>
-									<i id="R52" class="small material-icons bed">check_box_outline_blank</i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="R6" class="room z-depth-2">
-								<label>#6</label>
-								<div class="beds">
-									<i id="R61" class="small material-icons bed">check_box_outline_blank</i>
-									<i id="R62" class="small material-icons bed">check_box_outline_blank</i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="R7" class="room z-depth-2">
-								<label>#7</label>
-								<div class="beds">
-									<i id="R71" class="small material-icons bed">check_box_outline_blank</i>
-									<i id="R72" class="small material-icons bed">check_box_outline_blank</i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div id="R8" class="room z-depth-2">
-								<label>#8</label>
-								<div class="beds">
-									<i id="R81" class="small material-icons bed">check_box_outline_blank</i>
-									<i id="R82" class="small material-icons bed">check_box_outline_blank</i>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="row">
-					<ul>
-						<li>
-							<div class="medicine-room z-depth-2">
-								<label>Medicine room</label>
-							</div>
-						</li>
-						<li>
-							<div class="spare-room z-depth-2">
-								<label>Spare room</label>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="right-section">
-				<div class="column">
-					<div class="staff-room z-depth-2">
-						<label>Staff room</label>
-					</div>
-					<div class="treatment-room z-depth-2">
-						<label>Treatment room</label>
-						<p>Load</p>
-						<p>25%</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="panel">
-			<ul>
+
+<head>
+    <meta charset="utf-8">
+    <script src="socket.io.js"></script>
+    <script src="jquery.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="socket.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>General medicine unit</h1>
+    <div class="container">
+        <div class="unit">
+            <div class="left-section">
+                <div class="row">
+                    <ul>
+                        <li>
+                            <div id="R1" class="room z-depth-2">
+                                <label>#1</label>
+                                <div class="beds">
+                                    <i id="R11" class="small material-icons bed">check_box_outline_blank</i>
+                                    <i id="R12" class="small material-icons bed">check_box_outline_blank</i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="R2" class="room z-depth-2">
+                                <label>#2</label>
+                                <div class="beds">
+                                    <i id="R21" class="small material-icons bed">check_box_outline_blank</i>
+                                    <i id="R22" class="small material-icons bed">check_box_outline_blank</i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="R3" class="room z-depth-2">
+                                <label>#3</label>
+                                <div class="beds">
+                                    <i id="R31" class="small material-icons bed">check_box_outline_blank</i>
+                                    <i id="R32" class="small material-icons bed">check_box_outline_blank</i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="R4" class="room z-depth-2">
+                                <label>#4</label>
+                                <div class="beds">
+                                    <i id="R41" class="small material-icons bed">check_box_outline_blank</i>
+                                    <i id="R42" class="small material-icons bed">check_box_outline_blank</i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <ul>
+                        <li>
+                            <div id="R5" class="room z-depth-2">
+                                <label>#5</label>
+                                <div class="beds">
+                                    <i id="R51" class="small material-icons bed">check_box_outline_blank</i>
+                                    <i id="R52" class="small material-icons bed">check_box_outline_blank</i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="R6" class="room z-depth-2">
+                                <label>#6</label>
+                                <div class="beds">
+                                    <i id="R61" class="small material-icons bed">check_box_outline_blank</i>
+                                    <i id="R62" class="small material-icons bed">check_box_outline_blank</i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="R7" class="room z-depth-2">
+                                <label>#7</label>
+                                <div class="beds">
+                                    <i id="R71" class="small material-icons bed">check_box_outline_blank</i>
+                                    <i id="R72" class="small material-icons bed">check_box_outline_blank</i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="R8" class="room z-depth-2">
+                                <label>#8</label>
+                                <div class="beds">
+                                    <i id="R81" class="small material-icons bed">check_box_outline_blank</i>
+                                    <i id="R82" class="small material-icons bed">check_box_outline_blank</i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <ul>
+                        <li>
+                            <div class="medicine-room z-depth-2">
+                                <label>Medicine room</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="spare-room z-depth-2">
+                                <label>Spare room</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right-section">
+                <div class="column">
+                    <div class="staff-room z-depth-2">
+                        <label>Staff room</label>
+                        <ul class="staff-list">
+                            <li class="staff-person">Pamela Anderson</li>
+                            <li class="staff-person">Palmela Handerson</li>
+                        </ul>
+
+
+                    </div>
+                    <div class="treatment-room z-depth-2">
+                        <label>Treatment room</label>
+                        <p>Load</p>
+                        <p>25%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <ul>
                 <li>
                     <div class="input-field">
                         <input id="input-personal-number" type="text">
                         <label for="input-personal-number">Person to be added:</label>
-                        <button type="button" id="btn-add-person" name="btn-add-person" class="btn">Add person</button>    
+                        <button type="button" id="btn-add-person" name="btn-add-person" class="btn">Add person</button>
                     </div>
                 </li>
-				<li>
-					<button type="button" id="button1" name="button">I do somtheing</button>
-				</li>
-				<li>
-					<button type="button" id="button2" name="button">I do something else</button>
-				</li>
-			</ul>
-		</div>
-	</div>
+                <li>
+                    <button type="button" id="button1" name="button">I do somtheing</button>
+                </li>
+                <li>
+                    <button type="button" id="button2" name="button">I do something else</button>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-	<!-- Modal for rooms -->
-	<div id="modal-room" class="modal fade">
-		<div class="modal-content">
-			<h4 id="modal-header"></h4>
-			<table>
-				<tbody>
-					<tr>
-						<td>Name:</td>
-						<td id="patient-1-name"></td>
-						<td id="patient-2-name"></td>
-					</tr>
-					<tr>
-						<td>Personal number:</td>
-						<td id="patient-1-pn"></td>
-						<td id="patient-2-pn"></td>
-					</tr>
-					<tr>
-						<td>Date of birth:</td>
-						<td id="patient-1-dob"></td>
-						<td id="patient-2-dob"></td>
-					</tr>
+    <!-- Modal for rooms -->
+    <div id="modal-room" class="modal fade">
+        <div class="modal-content">
+            <h4 id="modal-header"></h4>
+            <table>
+                <tbody>
                     <tr>
-						<td>Gender:</td>
-						<td id="patient-1-gender"></td>
-						<td id="patient-2-gender"></td>
-					</tr>
-					<tr>
-						<td>Admission date:</td>
-						<td id="patient-1-adate"></td>
-						<td id="patient-2-adate"></td>
-					</tr>
-					<tr>
-						<td>Discharge date:</td>
-						<td id="patient-1-ddate"></td>
-						<td id="patient-2-ddate"></td>
-					</tr>
-					<tr>
-						<td>Unit:</td>
-						<td id="patient-1-unit"></td>
-						<td id="patient-2-unit"></td>
-					</tr>
-					<tr>
-						<td>Condition:</td>
-						<td id="patient-1-condition"></td>
-						<td id="patient-2-condition"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+                        <td>Name:</td>
+                        <td id="patient-1-name"></td>
+                        <td id="patient-2-name"></td>
+                    </tr>
+                    <tr>
+                        <td>Personal number:</td>
+                        <td id="patient-1-pn"></td>
+                        <td id="patient-2-pn"></td>
+                    </tr>
+                    <tr>
+                        <td>Date of birth:</td>
+                        <td id="patient-1-dob"></td>
+                        <td id="patient-2-dob"></td>
+                    </tr>
+                    <tr>
+                        <td>Gender:</td>
+                        <td id="patient-1-gender"></td>
+                        <td id="patient-2-gender"></td>
+                    </tr>
+                    <tr>
+                        <td>Admission date:</td>
+                        <td id="patient-1-adate"></td>
+                        <td id="patient-2-adate"></td>
+                    </tr>
+                    <tr>
+                        <td>Discharge date:</td>
+                        <td id="patient-1-ddate"></td>
+                        <td id="patient-2-ddate"></td>
+                    </tr>
+                    <tr>
+                        <td>Unit:</td>
+                        <td id="patient-1-unit"></td>
+                        <td id="patient-2-unit"></td>
+                    </tr>
+                    <tr>
+                        <td>Condition:</td>
+                        <td id="patient-1-condition"></td>
+                        <td id="patient-2-condition"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-	<!-- Modal for staff room -->
-	<div id="modal-staff-room" class="modal fade center">
-		<div class="modal-content">
-			<h4 id="modal-header">Staff</h4>
-			<ul class="collection with-header">
-				<li class="collection-header"><h4>Current shift</h4></li>
-				<li class="collection-item">Pamela Anderson</li>
-				<li class="collection-item">Palmela Handerson</li>
-			</ul>
-			<ul class="collection with-header">
-				<li class="collection-header"><h4>Next shift</h4></li>
-				<li class="collection-item">Stormy Daniels</li>
-				<li class="collection-item">Michael Kohen</li>
-			</ul>
-		</div>
-	</div>
+    <!-- Modal for staff room -->
+    <div id="modal-staff-room" class="modal fade center">
+        <div class="modal-content">
+            <h4 id="modal-header">Staff</h4>
+            <ul class="collection with-header">
+                <li class="collection-header">
+                    <h4>Current shift</h4>
+                </li>
+                <li class="collection-item">Pamela Anderson</li>
+                <li class="collection-item">Palmela Handerson</li>
+            </ul>
+            <ul class="collection with-header">
+                <li class="collection-header">
+                    <h4>Next shift</h4>
+                </li>
+                <li class="collection-item">Stormy Daniels</li>
+                <li class="collection-item">Michael Kohen</li>
+            </ul>
+        </div>
+    </div>
 
-	<!-- Modal for treatement room -->
-	<div id="modal-treatment-room" class="modal fade">
-		<div class="modal-content">
-			<h4 id="modal-header">Treatment room</h4>
-			<table>
-				<tbody>
-					<tr>
-						<td>9:00</td>
-						<td>Logan Fowler</td>
-						<td>Some procedure</td>
-					</tr>
-					<tr>
-						<td>10:00</td>
-						<td>Cody Madison</td>
-						<td>Other procedure</td>
-					</tr>
-					<tr>
-						<td>11:00</td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>13:00</td>
-						<td>Lunch</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>14:00</td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>15:00</td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>16:00</td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>17:00</td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <!-- Modal for treatement room -->
+    <div id="modal-treatment-room" class="modal fade">
+        <div class="modal-content">
+            <h4 id="modal-header">Treatment room</h4>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>9:00</td>
+                        <td>Logan Fowler</td>
+                        <td>Some procedure</td>
+                    </tr>
+                    <tr>
+                        <td>10:00</td>
+                        <td>Cody Madison</td>
+                        <td>Other procedure</td>
+                    </tr>
+                    <tr>
+                        <td>11:00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>13:00</td>
+                        <td>Lunch</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>14:00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>15:00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>16:00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>17:00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-	<script src="index.js"></script>
+    <script src="index.js"></script>
 
-  </body>
+</body>
+
 </html>
