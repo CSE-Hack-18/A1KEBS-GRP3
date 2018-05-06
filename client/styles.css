@@ -172,3 +172,10 @@ button {
 	text-align: center;
 	width: 600px;
 }
+
+.load img {
+	position: relative;
+	top: 40px;
+	width: 100px;
+	height: 100px;
+}
