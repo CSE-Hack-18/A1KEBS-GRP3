@@ -1,8 +1,10 @@
 console.log('index javascript working');
 
-var socket = io("http://localhost:8080");
+$(function(){
+	// initialize modal
+	$('.modal').modal();
 
-socket.emit('findBedForPatient', "19820503-7554");
+// socket.emit('findBedForPatient', "19820503-7554");
 // socket.emit('findBedForPatient', "19671019-5774");
 // socket.emit('findBedForPatient', "19810215-0797");
 // socket.emit('findBedForPatient', "19740226-6329");
@@ -17,7 +19,30 @@ socket.emit('findBedForPatient', "19820503-7554");
 // socket.emit('findBedForPatient', "19221012-6293");
 
 
+	$('#button1').on('click', () => {
 
-socket.on('assignedBed', function(data){
-  console.log(data);
+	})
+
+	$('#button2').on('click', () => {
+		$('#modal-room').modal('open');
+	})
+
+	$('.room').on('click', (event) => {
+		var room = event.target.children[0].textContent;
+		$('#modal-header').text(room);
+		$('#modal-room').modal('open');
+	})
+
+	$('.treatment-room').on('click', (event) => {
+		$('#modal-treatment-room').modal('open');
+	})
+
+	$('.staff-room').on('click', (event) => {
+		$('#modal-staff-room').modal('open');
+	})
 });
+
+// add OR remove
+function addToRoom(room) {
+
+}
