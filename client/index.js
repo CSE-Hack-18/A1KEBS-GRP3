@@ -46,3 +46,7 @@ $(function(){
 function addToRoom(room) {
 
 }
+
+function addPatientToBed(bed){
+    $("#"+bed).html("check_box");
+}

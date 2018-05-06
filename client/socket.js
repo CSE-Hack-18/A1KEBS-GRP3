@@ -10,7 +10,7 @@ socket.emit('getBeds', 'General Medicine', function (data) {
         getPersonForBed(i, function (i, e) {
             beds[i].patient = e;
             if(beds[i].occupied){
-                fillBed(beds[i].number);
+                addPatientToBed(beds[i].number);
             }
         });
     }
