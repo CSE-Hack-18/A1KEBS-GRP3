@@ -29,6 +29,8 @@ $(function(){
 
 	$('.room').on('click', (event) => {
 		var room = event.target.children[0].textContent;
+        var roomID = event.target.id;
+        updatePatientModal(roomID);
 		$('#modal-header').text(room);
 		$('#modal-room').modal('open');
 	})
