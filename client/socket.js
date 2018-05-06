@@ -9,7 +9,7 @@ $(document).ready(function () {
         }
     });
 
-    socket.on('updateRoom', (data) => {
+    socket.on('assignedBed', (data) => {
         var location = getBedLocation(data);
         getPersonForBed(location);
     });

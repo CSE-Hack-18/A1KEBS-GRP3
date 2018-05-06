@@ -20,24 +20,23 @@ const UnitSchema = new mongoose.Schema({
         name: String,
         experience: String,
         number: String
-    }],
-    doctor: [{
-        name: String
     }]
+});
+
+var BedSchema = new mongoose.Schema({
+    number: String,
+    occupied: Boolean,
+    patient: String
 });
 
 const RoomSchema = new mongoose.Schema({
     unit: String,
     name: String,
     type: String,
-    beds: [
-        {
-            number: String,
-            occupied: Boolean,
-            patient: String
-          }
-        ],
-    facilities: [String]
+    beds: [BedSchema],
+    facilities: [{
+        type: String
+    }]
 });
 
 const Patient = mongoose.model('Patient', PatientSchema)
@@ -133,17 +132,10 @@ function getNurses(ack) {
     });
 }
 
-function getDoctor() {
-    Unit.find({}, function (err, data) {
-        if (err) {
-            console.log(err);
-        } else ack(data.doctor);
-    });
-}
-
 exports.addPatient = addPatient
 exports.getPatientByBed = getPatientByBed
 exports.getPatientByID = getPatientByID
 exports.getAllPatients = getAllPatients
 exports.addPatientToBed = addPatientToBed
 exports.getAllRooms = getAllRooms
+exports.getNurses = getNurses
