@@ -111,6 +111,14 @@ function getAllPatients(ack) {
     })
 }
 
+function getAllPatientsByUnit(unit, ack) {
+    Patient.find({unit: unit}, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else ack(data);
+    })
+}
+
 function getAllRooms(unitName, ack) {
     Room.find({
             unit: unitName
@@ -139,3 +147,4 @@ exports.getAllPatients = getAllPatients
 exports.addPatientToBed = addPatientToBed
 exports.getAllRooms = getAllRooms
 exports.getNurses = getNurses
+exports.getAllPatientsByUnit = getAllPatientsByUnit
