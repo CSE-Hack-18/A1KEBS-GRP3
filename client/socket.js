@@ -22,12 +22,12 @@ $(document).ready(function () {
 //        $(document).one('click', '#view-added', function(){
 //            var room = data.substr(0, 2);
 //            console.log(room);
-//            $("#"+room).click();        
+//            $("#"+room).click();
 //        });
         var location = getBedLocation(data);
         beds[location].occupied = true;
         getPersonForBed(location);
-        
+
     });
 });
 
@@ -43,7 +43,7 @@ function getPersonForBed(i) {
 
 // have the server figure out where to put the person
 function addPersonToBed(personalNumber){
-   socket.emit('findBedForPatient', personalNumber); 
+   socket.emit('findBedForPatient', personalNumber);
 }
 
 function getBedLocation(bedNumber) {
@@ -65,9 +65,9 @@ function updatePatientModal(roomNumber) {
     if (patient1 != null) {
         $("#patient-1-name").text(patient1.name);
         $("#patient-1-pn").text(patient1.personalNumber);
-        $("#patient-1-dob").text(patient1.dateOfBirth);
-        $("#patient-1-adate").text(patient1.admissionDate);
-        $("#patient-1-ddate").text(patient1.dischargeDate);
+        $("#patient-1-dob").text(moment(patient1.dateOfBirth).format('YYYY-MM-DD'));
+        $("#patient-1-adate").text(moment(patient1.admissionDate).format('YYYY-MM-DD'));
+        $("#patient-1-ddate").text(moment(patient1.dischargeDate).format('YYYY-MM-DD'));
         $("#patient-1-unit").text(patient1.unit);
         $("#patient-1-condition").text(patient1.condition);
         $("#patient-1-gender").text(patient1.gender);
@@ -75,9 +75,9 @@ function updatePatientModal(roomNumber) {
     if (patient2 != null) {
         $("#patient-2-name").text(patient2.name);
         $("#patient-2-pn").text(patient2.personalNumber);
-        $("#patient-2-dob").text(patient2.dateOfBirth);
-        $("#patient-2-adate").text(patient2.admissionDate);
-        $("#patient-2-ddate").text(patient2.dischargeDate);
+        $("#patient-2-dob").text(moment(patient2.dateOfBirth).format('YYYY-MM-DD'));
+        $("#patient-2-adate").text(moment(patient2.admissionDate).format('YYYY-MM-DD'));
+        $("#patient-2-ddate").text(moment(patient2.dischargeDate).format('YYYY-MM-DD'));
         $("#patient-2-unit").text(patient2.unit);
         $("#patient-2-condition").text(patient2.condition);
         $("#patient-2-gender").text(patient2.gender);
