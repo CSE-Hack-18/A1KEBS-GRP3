@@ -70,6 +70,7 @@ function updatePatientModal(roomNumber) {
         $("#patient-1-ddate").text(patient1.dischargeDate);
         $("#patient-1-unit").text(patient1.unit);
         $("#patient-1-condition").text(patient1.condition);
+        $("#patient-1-gender").text(patient1.gender);
     }
     if (patient2 != null) {
         $("#patient-2-name").text(patient2.name);
@@ -79,6 +80,7 @@ function updatePatientModal(roomNumber) {
         $("#patient-2-ddate").text(patient2.dischargeDate);
         $("#patient-2-unit").text(patient2.unit);
         $("#patient-2-condition").text(patient2.condition);
+        $("#patient-2-gender").text(patient2.gender);
     }
 }
 
@@ -90,6 +92,7 @@ function clearModal() {
     $("#patient-1-ddate").text("");
     $("#patient-1-unit").text("");
     $("#patient-1-condition").text("");
+    $("#patient-1-gender").text("");
 
     $("#patient-2-name").text("");
     $("#patient-2-pn").text("");
@@ -98,4 +101,5 @@ function clearModal() {
     $("#patient-2-ddate").text("");
     $("#patient-2-unit").text("");
     $("#patient-2-condition").text("");
+    $("#patient-2-gender").text("");
 }
