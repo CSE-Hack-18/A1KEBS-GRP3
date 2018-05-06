@@ -42,6 +42,11 @@ $(function(){
 	$('.staff-room').on('click', (event) => {
 		$('#modal-staff-room').modal('open');
 	})
+    
+    $("#btn-add-person").click(function(){
+       var number = $("#input-personal-number").val();
+        addPersonToBed(number);
+    });
 });
 
 // add OR remove
@@ -49,6 +54,6 @@ function addToRoom(room) {
 
 }
 
-function addPatientToBed(bed){
+function updateBedStatus(bed){
     $("#"+bed).html("check_box");
 }

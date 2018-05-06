@@ -1,27 +1,34 @@
 var socket = io("http://localhost:8080");
 
 var beds = [];
+$(document).ready(function () {
+    socket.emit('getBeds', 'General Medicine', function (data) {
+        beds = data;
+        for (var i = 0; i < beds.length; i++) {
+            getPersonForBed(i);
+        }
+    });
 
-socket.emit('getBeds', 'General Medicine', function (data) {
-    beds = data;
-    for (var i = 0; i < beds.length; i++) {
-        getPersonForBed(i);
-    }
+    socket.on('updateRoom', (data) => {
+        var location = getBedLocation(data);
+        getPersonForBed(location);
+    });
 });
 
+// find who is staying in the specified bed
 function getPersonForBed(i) {
     socket.emit('getBedOwner', beds[i].number, function (data) {
         beds[i].patient = data;
         if (beds[i].occupied) {
-            addPatientToBed(beds[i].number);
+            updateBedStatus(beds[i].number);
         }
     });
 }
 
-socket.on('updateRoom', (data) => {
-    var location = getBedLocation(data);
-    getPersonForBed(location);
-});
+// have the server figure out where to put the person
+function addPersonToBed(personalNumber){
+   socket.emit('findBedForPatient', personalNumber); 
+}
 
 function getBedLocation(bedNumber) {
     var bed = $.grep(beds, function (index) {
@@ -38,7 +45,7 @@ function updatePatientModal(roomNumber) {
     var patient2 = beds[getBedLocation(bed2)].patient;
     //clear all of the fields first
     clearModal();
-    
+
     if (patient1 != null) {
         $("#patient-1-name").text(patient1.name);
         $("#patient-1-pn").text(patient1.personalNumber);
