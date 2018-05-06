@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<script src="socket.io.js"></script>
+		<script src="jquery.js"></script>
+		<!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style media="screen">
+			html {
+				background: url(img/bg.jpg) no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			.container {
+				width: 600px;
+			}
+			i {
+				color: black;
+				margin: 0px 10px;
+			}
+			.collection-item {
+				font-size: 24px;
+			}
+
+		</style>
+	</head>
+	<body>
+	<h1 class="center">ED unit</h1>
+	<div class="container">
+		<ul class="collection">
+			<li class="collection-item">
+				<div>Some Guy
+					<a href="#!" class="secondary-content button">
+						<i class="small material-icons">send</i>
+					</a>
+					<a href="#!" class="secondary-content">
+						<i class="small material-icons">info</i>
+					</a>
+				</div>
+			</li>
+			<li class="collection-item">
+				<div>Other Guy
+					<a href="#!" class="secondary-content button">
+						<i class="small material-icons">send</i>
+					</a>
+					<a href="#!" class="secondary-content">
+						<i class="small material-icons">info</i>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Modal Structure -->
+	<div id="modal-room" class="modal fade">
+		<div class="modal-content">
+			<h4 id="modal-header"></h4>
+			<table>
+				<tbody>
+					<tr>
+						<td>Name:</td>
+						<td id="patient-1-name">Logan Fowler</td>
+						<td id="patient-2-name">Cody Madison</td>
+					</tr>
+					<tr>
+						<td>Personal number:</td>
+						<td id="patient-1-pn">671019-5774</td>
+						<td id="patient-2-pn">810215-0797</td>
+					</tr>
+					<tr>
+						<td>Date of birth:</td>
+						<td id="patient-1-dob">1967-01-19</td>
+						<td id="patient-2-dob">1981-02-15</td>
+					</tr>
+					<tr>
+						<td>Admission date:</td>
+						<td id="patient-1-adate">2018-05-02</td>
+						<td id="patient-2-adate">2018-04-29</td>
+					</tr>
+					<tr>
+						<td>Discharge date:</td>
+						<td id="patient-1-ddate">2018-05-08</td>
+						<td id="patient-2-ddate">2018-05-20</td>
+					</tr>
+					<tr>
+						<td>Unit:</td>
+						<td id="patient-1-unit">General Medicine</td>
+						<td id="patient-2-unit">General Medicine</td>
+					</tr>
+					<tr>
+						<td>Condition:</td>
+						<td id="patient-1-condition">Critical</td>
+						<td id="patient-2-condition">Serious</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="index.js"></script>
+
+  </body>
+</html>
