@@ -107,7 +107,6 @@ io.on('connection', function (client) {
                                     }
 
                                     if (patientObject !== null && patientObject !== undefined) {
-
                                         if (earliest === null || earliest === undefined) {
                                             if (!rooms[i].beds[(j + 1) % 2].occupied) {
                                                 earliest = patientObject;
@@ -115,10 +114,12 @@ io.on('connection', function (client) {
                                             }
                                         } else if (patientObject.dischargeDate < earliest.dischargeDate) {
                                             if (!rooms[i].beds[(j + 1) % 2].occupied) {
+                                              if(patientObject.gender === patient.gender){
                                                 earliest = patientObject;
                                                 chosenBed = rooms[i].beds[(j + 1) % 2].number;
                                                 console.log("chosenBed");
                                                 console.log(chosenBed);
+                                              }
                                             }
                                         }
                                     }
