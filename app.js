@@ -34,145 +34,146 @@ io.on('connection', function (client) {
             }
             callback(beds);
         });
+    });
 
-        client.on('getBedOwner', function (data, callback) {
-            mongo.getPatientByBed(data, function (patient) {
-                callback(patient);
-            });
+    client.on('getBedOwner', function (data, callback) {
+        mongo.getPatientByBed(data, function (patient) {
+            callback(patient);
         });
+    });
 
-        client.on('getPatientByID', function (personNumber) {
-            mongo.getPatientByID(personNumber, function (patient) {
-                console.log("Getting patient");
-                console.log(patient);
-                console.log("Sending patient");
-                io.sockets.emit('patient', patient);
-            });
+    client.on('getPatientByID', function (personNumber) {
+        mongo.getPatientByID(personNumber, function (patient) {
+            console.log("Getting patient");
+            console.log(patient);
+            console.log("Sending patient");
+            io.sockets.emit('patient', patient);
         });
+    });
 
-        client.on('getAllRooms', function (unitName) {
-            mongo.getAllRooms(unitName, function (rooms) {
-                io.sockets.emit('rooms', rooms);
-            });
+    client.on('getAllRooms', function (unitName) {
+        mongo.getAllRooms(unitName, function (rooms) {
+            io.sockets.emit('rooms', rooms);
         });
+    });
 
-        client.on('findBedForPatient', function (personNumber) {
-            console.log("Finding bed for " + personNumber);
-            mongo.getPatientByID(personNumber, function (patient) {
-                console.log("Patient:");
-                console.log(patient);
-                mongo.getAllRooms(patient.unit, function (rooms) {
-                    console.log("Getting all rooms");
-                    var roomFound = false;
-                    //Look for room with empty beds
-                    for (var i = 0; i < rooms.length; i++) {
-                        var freeBeds = 0;
-                        for (var j = 0; j < rooms[i].beds.length; j++) {
-                            if (!rooms[i].beds[j].occupied) {
-                                freeBeds++
-                            }
-                        }
-                        //If the room is empty
-                        if (freeBeds == rooms[i].beds.length) {
-                            mongo.addPatientToBed(rooms[i].beds[0].number, personNumber);
-                            io.sockets.emit('assignedBed', rooms[i].beds[0].number);
-                            roomFound = true;
-                            break;
+    client.on('findBedForPatient', function (personNumber) {
+        console.log("Finding bed for " + personNumber);
+        mongo.getPatientByID(personNumber, function (patient) {
+            console.log("Patient:");
+            console.log(patient);
+            mongo.getAllRooms(patient.unit, function (rooms) {
+                console.log("Getting all rooms");
+                var roomFound = false;
+                //Look for room with empty beds
+                for (var i = 0; i < rooms.length; i++) {
+                    var freeBeds = 0;
+                    for (var j = 0; j < rooms[i].beds.length; j++) {
+                        if (!rooms[i].beds[j].occupied) {
+                            freeBeds++
                         }
                     }
-                    //No empty room found
-                    //Find room with the least ammount of people and with people that leave
-                    //the earliest
-                    if (!roomFound) {
+                    //If the room is empty
+                    if (freeBeds == rooms[i].beds.length) {
+                        mongo.addPatientToBed(rooms[i].beds[0].number, personNumber);
+                        io.sockets.emit('assignedBed', rooms[i].beds[0].number);
+                        roomFound = true;
+                        break;
+                    }
+                }
+                //No empty room found
+                //Find room with the least ammount of people and with people that leave
+                //the earliest
+                if (!roomFound) {
 
-                        //find room with earliest leaving neighbour
-                        //if(rooms[i] && rooms[i].beds[(j+1)%beds.length]){
-                        async function findBestNeighbour(patientList) {
-                            var earliest;
-                            var chosenBed;
-                            for (var i = 0; i < 8; i++) {
-                                for (var j = 0; j < 2; j++) {
+                    //find room with earliest leaving neighbour
+                    //if(rooms[i] && rooms[i].beds[(j+1)%beds.length]){
+                    async function findBestNeighbour(patientList) {
+                        var earliest;
+                        var chosenBed;
+                        for (var i = 0; i < 8; i++) {
+                            for (var j = 0; j < 2; j++) {
 
-                                    // mongo.getPatientByID(rooms[i].beds[j].patient, function (patientObject) {
-                                    //var patientObject = await getPatientByID(rooms[i].beds[j].patient, patientList);
+                                // mongo.getPatientByID(rooms[i].beds[j].patient, function (patientObject) {
+                                //var patientObject = await getPatientByID(rooms[i].beds[j].patient, patientList);
 
-                                    var patientObject = null;
-                                    if (rooms[i].beds[j].patient != "") {
-                                        console.log("Getting patient by id: " + rooms[i].beds[j].patient);
-                                        for (var k = 0; k < patientList.length; k++) {
-                                            if (patientList[k].personalNumber === rooms[i].beds[j].patient) {
-                                                patientObject = patientList[k];
-                                            }
+                                var patientObject = null;
+                                if (rooms[i].beds[j].patient != "") {
+                                    console.log("Getting patient by id: " + rooms[i].beds[j].patient);
+                                    for (var k = 0; k < patientList.length; k++) {
+                                        if (patientList[k].personalNumber === rooms[i].beds[j].patient) {
+                                            patientObject = patientList[k];
                                         }
                                     }
+                                }
 
-                                    if (patientObject !== null && patientObject !== undefined) {
-                                        if (earliest === null || earliest === undefined) {
-                                            if (!rooms[i].beds[(j + 1) % 2].occupied) {
-                                                earliest = patientObject;
-                                                chosenBed = rooms[i].beds[(j + 1) % 2].number;
-                                            }
-                                        } else if (patientObject.dischargeDate < earliest.dischargeDate) {
-                                            if (!rooms[i].beds[(j + 1) % 2].occupied) {
-                                              if(patientObject.gender === patient.gender){
+                                if (patientObject !== null && patientObject !== undefined) {
+                                    if (earliest === null || earliest === undefined) {
+                                        if (!rooms[i].beds[(j + 1) % 2].occupied) {
+                                            earliest = patientObject;
+                                            chosenBed = rooms[i].beds[(j + 1) % 2].number;
+                                        }
+                                    } else if (patientObject.dischargeDate < earliest.dischargeDate) {
+                                        if (!rooms[i].beds[(j + 1) % 2].occupied) {
+                                            if (patientObject.gender === patient.gender) {
                                                 earliest = patientObject;
                                                 chosenBed = rooms[i].beds[(j + 1) % 2].number;
                                                 console.log("chosenBed");
                                                 console.log(chosenBed);
-                                              }
                                             }
                                         }
                                     }
-                                    // });
                                 }
-                            }
-                            return chosenBed;
-                        }
-
-                        function addPatientToBed(chosenBed, personNumber) {
-                            if (chosenBed !== null || chosenBed !== undefined) {
-                                mongo.addPatientToBed(chosenBed, personNumber);
-                                console.log("Patient has been assigned bed "+chosenBed);
-                                io.sockets.emit('assignedBed', chosenBed);
-                            } else {
-                                console.log("No bed available");
+                                // });
                             }
                         }
-
-                        async function f1() {
-                            patientList = await updatePatientList();
-                            chosenBed = await findBestNeighbour(patientList);
-                            addPatientToBed(chosenBed, personNumber);
-                        }
-
-                        f1();
-
-                        // if(chosenBed === null || chosenBed === undefined){
-                        //   console.log("No bed available");
-                        //   console.log("chosenBed:");
-                        //   console.log(chosenBed);
-                        // }else {
-                        //   mongo.addPatientToBed(chosenBed, personNumber);
-                        //   io.sockets.emit('assignedBed', chosenBed);
-                        // }
+                        return chosenBed;
                     }
-                });
+
+                    function addPatientToBed(chosenBed, personNumber) {
+                        if (chosenBed !== null || chosenBed !== undefined) {
+                            mongo.addPatientToBed(chosenBed, personNumber);
+                            console.log("Patient has been assigned bed " + chosenBed);
+                            io.sockets.emit('assignedBed', chosenBed);
+                        } else {
+                            console.log("No bed available");
+                        }
+                    }
+
+                    async function f1() {
+                        patientList = await updatePatientList();
+                        chosenBed = await findBestNeighbour(patientList);
+                        addPatientToBed(chosenBed, personNumber);
+                    }
+
+                    f1();
+
+                    // if(chosenBed === null || chosenBed === undefined){
+                    //   console.log("No bed available");
+                    //   console.log("chosenBed:");
+                    //   console.log(chosenBed);
+                    // }else {
+                    //   mongo.addPatientToBed(chosenBed, personNumber);
+                    //   io.sockets.emit('assignedBed', chosenBed);
+                    // }
+                }
             });
         });
+    });
 
-        client.on('getPatientByBed', function (bedNumber) {
-            console.log("Getting patient in bed " + bedNumber);
-            mongo.getPatientByBed(patient, function (bed) {
-                console.log(bed);
-                io.sockets.emit('patient', patient);
-            });
+    client.on('getPatientByBed', function (bedNumber) {
+        console.log("Getting patient in bed " + bedNumber);
+        mongo.getPatientByBed(patient, function (bed) {
+            console.log(bed);
+            io.sockets.emit('patient', patient);
         });
+    });
 
-		client.on('getAllPatientsByUnit', function (unit) {
-            console.log("Getting patients by unit: " + unit);
-			mongo.getAllPatientsByUnit(unit, (patients) => {
-				console.log(patients);
-			});
+    client.on('getAllPatientsByUnit', function (unit, callback) {
+        console.log("Getting patients by unit: " + unit);
+        mongo.getAllPatientsByUnit(unit, (patients) => {
+            callback(patients);
+            
         });
     });
 });
